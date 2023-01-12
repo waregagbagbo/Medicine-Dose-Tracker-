@@ -14,7 +14,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 class CustomRegisterView(SuccessMessageMixin,CreateView):
     template_name = 'accounts/register.html'
     form_class = UserRegisterationForm
-    #success_url = reverse_lazy('login')    
+    success_url = reverse_lazy('accounts:login')    
     success_message = "Account created successfully"
     
     
@@ -26,5 +26,10 @@ class CustomLoginPage(LoginView):
     def get_success_url(self):
         return self.get_redirect_url() or self.get_default_redirect_url()
     
+    
+
+class CustomLogout(TemplateView):
+    template_name = 'accounts/logout.html'
+    success_url = reverse_lazy('accounts:login')
 
     
