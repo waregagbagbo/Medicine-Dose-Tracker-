@@ -1,7 +1,8 @@
 from django.urls import path
 from .import views
-from django.contrib.auth import views as auth_views
 from .views import CustomLoginPage,CustomRegisterView
+
+app_name ='accounts'
 
 urlpatterns=[
     path('', CustomLoginPage.as_view(), name='login'),
