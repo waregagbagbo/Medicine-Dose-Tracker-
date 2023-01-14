@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-
-    My page
-
+      
+    <form method="post">
+        {% csrf_token %}
+        {{form}}
+        
+    </form>
+ndmncn cdcndk
 
 {% endblock%}
