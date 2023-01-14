@@ -8,8 +8,9 @@ from django.views.generic import CreateView,ListView,DeleteView,UpdateView
 
 class  MedicineView(ListView):
     model = Medicine
-    template_name = ''
+    template_name = 'medicine/medlist.html'
     
-    def get_context_data(self, **kwargs):
-        return super().get_context_data(**kwargs)
+    
+   
+    
     
