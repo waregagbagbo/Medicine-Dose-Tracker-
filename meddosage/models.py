@@ -4,9 +4,9 @@ from accounts.models import UserProfile
 # Create your models here.
 
 class Medicine(models.Model):
-    profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    tracked_medicine = models.CharField(max_length=10)
-    dosage = models.CharField(max_length=10)
+    profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+    tracked_medicine = models.CharField(max_length=10, null=True)
+    dosage = models.CharField(max_length=10, null=True)
     frequency = models.IntegerField()
         
     class Meta:
