@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
-{% block content %}
-      
-    <form method="post">
-        {% csrf_token %}
-        {{form}}
-        
-    </form>
-ndmncn cdcndk
+{% for m in medics %}
+   {{m.tracked_medicine}}
+   {{m.dosage}}
+   {{m.frequency}}
+
+{% endfor%}
 
 {% endblock%}
