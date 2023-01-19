@@ -21,11 +21,16 @@ class  MedicineView(LoginRequiredMixin,ListView):
         return context
 
 
-class MedicineCreate(CreateView):
+class MedicineCreate(LoginRequiredMixin,CreateView):
     model = Medicine
     template_name = 'medicine/create.html'
     form_class = MedicineForm
-    success_url = reverse_lazy('home')    
+    success_url = reverse_lazy('home')  
+    
+    def form_valid(self,form):
+        form.instance.user.profile= self.request.user.profile
+        self.object = form.save()
+        return super(MedicineCreate, self).form_valid(form)  
     
         
         
