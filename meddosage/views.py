@@ -27,9 +27,6 @@ class MedicineCreate(CreateView):
     form_class = MedicineForm
     success_url = reverse_lazy('home')    
     
-    def form_valid(self, form):
-        form = super(Medicine, self).form_valid(form)
-        return form.save()
         
         
 class MedicineUpdate(UpdateView):  # for edit
