@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
-{% load 'crispy_forms_tags' %}
+{% load  crispy_forms_tags %}
 
 {% block content %}
-{{form}}
-<input type="update" class="btn btn-secondary"
+<div class="container-fluid mt-5">
+   <div class="row-cols-auto">
+    {{form | crispy}}
+    <input type="Submit" class="btn btn-success">
+     
+   </div>
+</div>
+
 
 
 {% endblock %}

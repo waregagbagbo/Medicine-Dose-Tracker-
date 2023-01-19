@@ -41,10 +41,11 @@ class MedicineUpdate(UpdateView):  # for edit
     success_url = reverse_lazy('home')
     
     
-class MedicineEditView(DetailView):  # for  itemview
+    
+class MedicineEditView(DetailView):    # for  itemview
     model = Medicine
     template_name = 'medicine/edit.html'
-    for_class = MedicineForm  
+      
     
 class MedicineDelete(DeleteView):     # for delete
     model = Medicine
