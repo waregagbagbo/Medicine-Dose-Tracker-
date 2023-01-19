@@ -6,7 +6,7 @@ from accounts.models import UserProfile
 class Medicine(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
     tracked_medicine = models.CharField(max_length=10, null=True)
-    dosage = models.CharField(max_length=10, null=True)
+    dosage = models.CharField(max_length=20)
     frequency = models.IntegerField()
         
     class Meta:
@@ -15,6 +15,6 @@ class Medicine(models.Model):
         
     def __str__(self):
         #return self.tracked_medicine
-        return "%s,%s,%s"% self.tracked_medicine, self.dosage, self.frequency
+        return "%s,%s,%s"% (self.tracked_medicine,self.dosage,self.frequency)
     
     

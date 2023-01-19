@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-{% for m in medics %}
+
+{% block content %}
+
+{% for m in meds %}
    {{m.tracked_medicine}}
    {{m.dosage}}
    {{m.frequency}}
