@@ -1,13 +1,22 @@
 from django.db import models
-from accounts.models import UserProfile
+from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, null=True, unique=True, on_delete=models.CASCADE)   
+    
+    class Meta: 
+        verbose_name = "Profile"
+        
+    def __str__(self):
+        return '%s'% self.user
+    
+
 class Medicine(models.Model):
-    profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
     tracked_medicine = models.CharField(max_length=10, null=True)
-    dosage = models.CharField(max_length=20)
-    frequency = models.IntegerField()
+    dosage = models.CharField(max_length=20, null=True)
+    frequency = models.IntegerField(null=True)
         
     class Meta:
         verbose_name = 'Medicine'

@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from .models import *
 from accounts.models import *
-from accounts.models import UserProfile
 from .forms import MedicineForm
 from django.views.generic import CreateView,ListView,DeleteView,UpdateView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,13 +11,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class  MedicineView(LoginRequiredMixin,ListView):
     model = Medicine
-    template_name = 'medicine/medlist.html'       
+    template_name = 'medicine/medlist.html'   
+    context_object_name = 'meds'
     
-    def get_context_data(self, **kwargs):
+        
+    
+    '''def get_context_data(self, **kwargs):
         context = super(MedicineView,self).get_context_data(**kwargs)
-        #context['meds'] = Medicine.objects.filter().order_by('-tracked_medicine')
         context['meds'] = Medicine.objects.all()
-        return context
+        return context'''
 
 
 class MedicineCreate(LoginRequiredMixin,CreateView):
