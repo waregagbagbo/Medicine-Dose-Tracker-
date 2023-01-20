@@ -12,14 +12,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class  MedicineView(LoginRequiredMixin,ListView):
     model = Medicine
     template_name = 'medicine/medlist.html'   
-    context_object_name = 'meds'
+   # context_object_name = 'meds'
     
+    #def get_queryset(self):
+        # Medicine.objects.filter(user=self.request.user).order_by('tracked_medicine')   
         
     
-    '''def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super(MedicineView,self).get_context_data(**kwargs)
-        context['meds'] = Medicine.objects.all()
-        return context'''
+        context['meds'] = Medicine.objects.filter(user=self.request.user)
+        return context
 
 
 class MedicineCreate(LoginRequiredMixin,CreateView):
@@ -29,7 +31,7 @@ class MedicineCreate(LoginRequiredMixin,CreateView):
     success_url = reverse_lazy('home')  
     
     def form_valid(self,form):
-        form.instance.user.profile= self.request.user.profile
+        form.instance.user= self.request.user
         self.object = form.save()
         return super(MedicineCreate, self).form_valid(form)  
     

@@ -6,6 +6,6 @@ class MedicineForm(forms.ModelForm):
     class Meta:
         model = Medicine
         fields = "__all__"
-        exclude = ['profile']
+        exclude = ['user']
         
         
