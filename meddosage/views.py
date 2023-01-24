@@ -12,7 +12,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class  MedicineView(LoginRequiredMixin,ListView):
     model = Medicine
     template_name = 'medicine/medlist.html'   
-   # context_object_name = 'meds'
     
     #def get_queryset(self):
         # Medicine.objects.filter(user=self.request.user).order_by('tracked_medicine')   
@@ -20,7 +19,8 @@ class  MedicineView(LoginRequiredMixin,ListView):
     
     def get_context_data(self, **kwargs):
         context = super(MedicineView,self).get_context_data(**kwargs)
-        context['meds'] = Medicine.objects.filter(user=self.request.user)
+        #context['meds'] = Medicine.objects.filter(user=self.request.user)
+        context['meds'] = Medicine.objects.all()
         return context
 
 
