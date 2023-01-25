@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from .models import *
-from accounts.models import *
+from accounts.models import UserProfile
 from .forms import MedicineForm
 from django.views.generic import CreateView,ListView,DeleteView,UpdateView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -14,7 +14,7 @@ class  MedicineView(LoginRequiredMixin,ListView):
     template_name = 'medicine/medlist.html'           
     
     def get_context_data(self, **kwargs):
-        context = super(MedicineView,self).get_context_data(**kwargs)
+        context = super(MedicineView,self).get_context_data(**kwargs)        
         context['medicines'] = Medicine.objects.all().order_by('-tracked_medicine')
         return context
 
@@ -26,8 +26,8 @@ class MedicineCreate(LoginRequiredMixin,CreateView):
     success_url = reverse_lazy('home')  
     
     def form_valid(self,form):
-        form.instance.user= self.request.user
-        self.object = form.save()
+        my_form = UserProfile.objects.get(user=self.request.user)
+        form.instance.user= my_form.save()
         return super(MedicineCreate, self).form_valid(form)  
     
         

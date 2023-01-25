@@ -5,13 +5,10 @@
 <div class="container-fluid mt-5">
    <div class="row-cols-auto">
       <form method='POST'>
+         {% csrf_token %}
          {{form | crispy}}
-    <input type="Submit" class="btn btn-success">
-
-      </form>
-    {{form | crispy}}
-    <input type="Submit" class="btn btn-success">
-     
+         <input type="Submit" class="btn btn-success">
+      </form>     
    </div>
 </div>
 
