@@ -5,9 +5,11 @@
 {% block content %}
 <div class="container-fluid mt-5">
     <div class="row-cols-auto">
-        {% csrf_token %}
-        {{form | crispy}}
-        <input type="Submit" class="btn btn-secondary">       
+        <form method='POST'>
+            {% csrf_token %}
+            {{form | crispy}}
+          <input type="Submit" class="btn btn-secondary"> 
+        </form>      
     </div>
  </div>
 
