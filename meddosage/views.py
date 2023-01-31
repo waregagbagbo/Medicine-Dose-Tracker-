@@ -1,22 +1,23 @@
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render,get_object_or_404
 from django.urls import reverse_lazy
 from .models import *
 from accounts.models import UserProfile
 from .forms import MedicineForm
 from django.views.generic import CreateView,ListView,DeleteView,UpdateView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import pagination
 
 # Create your views here.
 
 class  MedicineView(LoginRequiredMixin,ListView):
     model = Medicine
-    template_name = 'medicine/medlist.html'           
+    template_name = 'medicine/medlist.html'
+    paginate_by = 10           
     
     def get_context_data(self, **kwargs):
-        context = super(MedicineView,self).get_context_data(**kwargs)        
-        context['medicines'] = Medicine.objects.all().order_by('-tracked_medicine')
-        return context
+        context = super(MedicineView,self).get_context_data(**kwargs)       
+        context['medicines'] = Medicine.objects.filter(user = self.request.user.userprofile).order_by('-tracked_medicine')        
+        return context       
 
 
 class MedicineCreate(LoginRequiredMixin,CreateView):
@@ -30,7 +31,7 @@ class MedicineCreate(LoginRequiredMixin,CreateView):
         form.instance.user= my_form.save()
         return super(MedicineCreate, self).form_valid(form)  
     
-        
+            
         
 class MedicineUpdate(UpdateView):  # for edit
     model = Medicine

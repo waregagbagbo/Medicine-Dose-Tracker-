@@ -22,10 +22,7 @@ class CustomRegisterView(SuccessMessageMixin,CreateView):
 class CustomLoginPage(LoginView):
     template_name = 'pages/login.html'
     success_url = reverse_lazy('home')
-    
-    #def get_success_url(self):
-        #return self.get_redirect_url(CustomLoginPage) or self.get_default_redirect_url()
-    
+      
     
 
 class CustomLogout(TemplateView):

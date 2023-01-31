@@ -15,6 +15,6 @@ class Medicine(models.Model):
         
     def __str__(self):
         #return self.tracked_medicine
-        return "%s,%s,%s"% (self.tracked_medicine,self.dosage,self.frequency)
+        return "%s,%s,%s"% (self.tracked_medicine,self.dosage, self.frequency)
     
     
