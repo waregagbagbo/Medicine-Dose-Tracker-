@@ -5,7 +5,7 @@ from accounts.models import UserProfile
 from .forms import MedicineForm
 from django.views.generic import CreateView,ListView,DeleteView,UpdateView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import pagination
+from django.core.paginator import Paginator
 
 # Create your views here.
 
