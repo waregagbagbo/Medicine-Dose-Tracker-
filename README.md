@@ -8,7 +8,7 @@ Built with Python on Django framework, Html and CSS(Bootstrap)
 
 ## Screenshots and demo
 Screenshots of your app and/or a link to your live demo
-[]
+![alt text](image.jpg)
 
 ## Installation
 Instructions for other developers on how to install and run your code on their local environment.
