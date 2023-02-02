@@ -8,11 +8,19 @@ Built with Python on Django framework, Html and CSS(Bootstrap)
 
 ## Screenshots and demo
 Screenshots of your app and/or a link to your live demo
-![alt text](image.jpg)
+![alt text](media/dose.jpg)
 
 ## Installation
 Instructions for other developers on how to install and run your code on their local environment.
-Install django
+
+1.Set up python virtual environment
+2.Run the following commands:
+
+  -$ pip install -r requirements.txt
+  -$ python manage.py makemimigrations
+  -$ python manage.py migrate
+  -$ python manage.py createsuperuser
+  -$ python manage.py runserver
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

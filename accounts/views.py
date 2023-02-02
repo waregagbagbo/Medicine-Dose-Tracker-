@@ -1,18 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect,HttpResponse
 from django.urls import reverse_lazy
 from .models import *
-from .forms import UserRegisterationForm,UpdateProfileForm
+from .forms import UserRegisterationForm,UpdateProfileForm,UpdateUserForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView,DeleteView,UpdateView
-from django.views.generic import ListView,TemplateView,DetailView
+from django.views.generic.edit import CreateView
+from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-
+from django.contrib import messages
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 class CustomRegisterView(SuccessMessageMixin,CreateView):
-    template_name = 'pages/register.html'
+    template_name = 'pages/change_pass.html'
     form_class = UserRegisterationForm
     success_url = reverse_lazy('accounts:login')    
     success_message = "Account created successfully"
@@ -21,18 +23,39 @@ class CustomRegisterView(SuccessMessageMixin,CreateView):
 
 class CustomLoginPage(LoginView):
     template_name = 'pages/login.html'
-    success_url = reverse_lazy('home')
-      
+    success_url = reverse_lazy('home')      
     
 
 class CustomLogout(TemplateView):
     template_name = 'pages/logout.html'
-    success_url = reverse_lazy('accounts:login')
-    
-    
-class UserProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'pages/profile.html'
-    form_class = UpdateProfileForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('accounts:login')    
 
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance= request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance= request.user.userprofile)      
+        
+        if user_form.is_valid() and profile_form.is_vaid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='profile')
+        
+        else:
+            user_form = UpdateUserForm(instance = request.user)
+            profile_form = UpdateProfileForm(instance = request.user.userprofile)
+            
+        context = {
+            'user_form': user_form,
+            'profile_form': profile_form,
+        }    
+        return render(request,'pages/profile.html',context)
+
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'pages/change_pass.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('home')
     
