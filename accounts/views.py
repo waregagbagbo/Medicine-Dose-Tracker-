@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from .models import *
-from .forms import UserRegisterationForm
+from .forms import UserRegisterationForm,UpdateProfileForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView,DeleteView,UpdateView
@@ -28,5 +28,11 @@ class CustomLoginPage(LoginView):
 class CustomLogout(TemplateView):
     template_name = 'pages/logout.html'
     success_url = reverse_lazy('accounts:login')
+    
+    
+class UserProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/profile.html'
+    form_class = UpdateProfileForm
+    success_url = reverse_lazy('home')
 
     

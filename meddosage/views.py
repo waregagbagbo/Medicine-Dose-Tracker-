@@ -27,7 +27,7 @@ class MedicineCreate(LoginRequiredMixin,CreateView):
     success_url = reverse_lazy('home')  
     
     def form_valid(self,form):
-        my_form = UserProfile.objects.get(user=self.request.user)
+        my_form = UserProfile.objects.get(user=self.request.user.userprofile)
         form.instance.user= my_form.save()
         return super(MedicineCreate, self).form_valid(form)  
     
