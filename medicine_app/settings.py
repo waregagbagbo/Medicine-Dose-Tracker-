@@ -136,3 +136,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 LOGIN_REDIRECT_URL = 'home'
 
+
+# celery configuration files
+CELERY_BROKER_URL = 'amqp://localhost'
