@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect,HttpResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from .models import *
 from .forms import UserRegisterationForm,UpdateProfileForm,UpdateUserForm
@@ -37,15 +38,15 @@ def profile(request):
         user_form = UpdateUserForm(request.POST, instance= request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance= request.user.userprofile)      
         
-        if user_form.is_valid() and profile_form.is_vaid():
+        if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='profile')
+            return HttpResponseRedirect('accounts:profile')
         
         else:
-            user_form = UpdateUserForm(instance = request.user)
-            profile_form = UpdateProfileForm(instance = request.user.userprofile)
+            user_form = UpdateUserForm()
+            profile_form = UpdateProfileForm()
             
         context = {
             'user_form': user_form,
