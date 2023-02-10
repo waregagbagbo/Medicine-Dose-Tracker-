@@ -1,12 +1,15 @@
-# DevProjects - Medicine dose tracker web app 
+### Medicine dose tracker web app 
 
 This is an open source project from [DevProjects](http://www.codementor.io/projects). Feedback and questions are welcome!
 Find the project requirements here: [Medicine dose tracker web app ](https://www.codementor.io/projects/web/medicine-dose-tracker-b6evlas194)
 
-## Tech/framework used
-Built with Python on Django framework, Html and CSS(Bootstrap)
+### Tech/framework used
+Built with Python on Django framework
 
-## Screenshots and demo
+#### UI Styling
+Incorporated using Bootstrap5
+
+### Screenshots and demo
 Screenshots of your app and/or a link to your live demo
 ![alt text](media/dose.jpg)
 
@@ -16,13 +19,13 @@ Instructions for other developers on how to install and run your code on their l
 1.Set up python virtual environment
 2.Run the following commands:
 
-  -$ pip install -r requirements.txt
-  -$ python manage.py makemimigrations
-  -$ python manage.py migrate
-  -$ python manage.py createsuperuser
-  -$ python manage.py runserver
+  *-$ pip install -r requirements.txt*
+  *-$ python manage.py makemimigrations*
+  *-$ python manage.py migrate*
+  *-$ python manage.py createsuperuser*
+  *-$ python manage.py runserver*
 3.[Open your browser and go to](http://127.0.0.1/8000)
 
-## License
+### License
 [MIT](https://choosealicense.com/licenses/mit/)
-Most open source projects use the MIT license. 
+
