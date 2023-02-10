@@ -42,17 +42,13 @@ def profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
-            return HttpResponseRedirect('accounts:profile')
-        
         else:
             user_form = UpdateUserForm()
             profile_form = UpdateProfileForm()
+            return('profile')
             
-        context = {
-            'user_form': user_form,
-            'profile_form': profile_form,
-        }    
-        return render(request,'pages/profile.html',context)
+       
+        return render(request,'pages/profile.html')
 
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):

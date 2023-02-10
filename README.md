@@ -39,4 +39,3 @@ Instructions for other developers on how to install and run your code on their l
 ### License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
