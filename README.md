@@ -28,7 +28,7 @@ Instructions for other developers on how to install and run your code on their l
 
   -$ python manage.py runserver
 
-3. [Open your browser and go to](http://127.0.0.1/8000) Dose tracker
+3.[Open your browser and go to Dose-Tracker](http://127.0.0.1/8000) 
 
 ### License
 [MIT](https://choosealicense.com/licenses/mit/)
