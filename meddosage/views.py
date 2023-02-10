@@ -17,7 +17,14 @@ class  MedicineView(LoginRequiredMixin,ListView):
     def get_context_data(self, **kwargs):
         context = super(MedicineView,self).get_context_data(**kwargs)       
         context['medicines'] = Medicine.objects.filter(user = self.request.user.userprofile).order_by('-tracked_medicine')        
-        return context       
+        return context
+        
+        search_input = self.request.GET.get('search_input') or '' # the apostrophe is for an empty search
+        if  search_input:
+           context["medicines"] = context["medicines"].filter(title__startswith=search_input)        
+        context['search_input'] = search_input
+        return contex    
+        
 
 
 class MedicineCreate(LoginRequiredMixin,CreateView):
