@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 class CustomRegisterView(SuccessMessageMixin,CreateView):
-    template_name = 'pages/change_pass.html'
+    template_name = 'pages/register.html'
     form_class = UserRegisterationForm
     success_url = reverse_lazy('accounts:login')    
     success_message = "Account created successfully"
