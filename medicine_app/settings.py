@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'meddosage',
     'crispy_forms',
     'crispy_bootstrap5',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
