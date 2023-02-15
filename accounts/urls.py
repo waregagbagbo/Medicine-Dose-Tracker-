@@ -22,6 +22,8 @@ urlpatterns=[
     path('password_reset_complete',auth_views.PasswordResetCompleteView.as_view(template_name="acc_pages/password_reset_complete.html"),\
          name='password_reset_complete'), 
     
+    # allauth path
+    
     
 
 ]
