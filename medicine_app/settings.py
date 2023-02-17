@@ -42,8 +42,14 @@ INSTALLED_APPS = [
     'meddosage',
     'crispy_forms',
     'crispy_bootstrap5',
+    
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    
+    # ... include the providers you want to enable:
+    'allauth.socialaccount.providers.google',
+    
 ]
 
 MIDDLEWARE = [
@@ -143,6 +149,9 @@ LOGIN_REDIRECT_URL = 'home'
 CELERY_BROKER_URL = 'amqp://localhost'
 
 AUTHENTICATION_BACKENDS = (
+     # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
