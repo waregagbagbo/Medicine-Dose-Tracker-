@@ -10,7 +10,7 @@ urlpatterns=[
     path('register/',CustomRegisterView.as_view(), name='register'),
     path('logout', CustomLogout.as_view(), name='logout'),
     path('password-change/', PasswordChangeView.as_view(), name='password_change'),    
-    path('profile',views.profile, name='profile'),
+   # path('profile',views.profile, name='profile'),
     
     # authentication url
     path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name="acc_pages/password_reset_confirm_form.html"),\

@@ -32,7 +32,7 @@ class CustomLogout(TemplateView):
     success_url = reverse_lazy('accounts:login')    
 
 
-@login_required
+"""@login_required
 def profile(request):
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance= request.user)
@@ -48,7 +48,7 @@ def profile(request):
             return('profile')
             
        
-        return render(request,'pages/profile.html')
+        return render(request,'pages/profile.html')"""
 
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
