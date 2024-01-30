@@ -1,6 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.urls import reverse_lazy
-from .models import *
+from .models import Medicine
+from django.http import JsonResponse
 from .forms import MedicineForm
 from django.views.generic import CreateView,ListView,DeleteView,UpdateView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,7 +17,8 @@ class  MedicineView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super(MedicineView,self).get_context_data(**kwargs)       
-        context['medicines'] = Medicine.objects.filter().order_by('-tracked_medicine')        
+        context['medicines'] = Medicine.objects.filter().order_by('-tracked_medicine') 
+         
        
         # search field section
         search_input = self.request.GET.get('search_input') or '' # the apostrophe is for an empty search
@@ -57,6 +59,9 @@ class MedicineDelete(DeleteView):     # for delete
     model = Medicine
     template_name ='medicine/delete.html'
     success_url = reverse_lazy('home')
+    
+    
+
     
 
      
