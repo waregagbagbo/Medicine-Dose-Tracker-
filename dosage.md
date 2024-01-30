@@ -23,3 +23,20 @@ pip install djangorestframework
 Add the the app to installed app in the settings as below:
 
 ** 'rest_framework'
+
+Steps for defining an API are acreating a serizlizer class(serializers.py), views and then binding the urls.
+
+
+## Permissions in REST API ##
+DRF has in built permissions used to secure the API. You can set the permissions at three levels:
+  1. Project-level
+  2. View-level
+  3. Model-level
+
+   ### Project level permissions ###
+They are set in the single Django settting called REST_FRAMEWORK in settings.py file.
+
+Despite the default allowAny policy, it has other built-in project levele permissions sucj as:
+  1. IsAutheneticated: Access to only authenticated users
+  2. IsAdminUser: Only admin/superuser access
+  3. IsAuthenticatedOrReadOnly:Only authenticated users can perfom CRUD

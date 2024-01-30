@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.urls import reverse_lazy
-from .models import Medicine
+from meddosage.models import Medicine
 from django.http import JsonResponse
 from .forms import MedicineForm
 from django.views.generic import CreateView,ListView,DeleteView,UpdateView,DetailView
@@ -11,20 +11,27 @@ from django.core.paginator import Paginator
 from rest_framework import generics
 from .serializers import MedicineSerializer # same as forms
 from .models import Medicine
+from .permissions import IsOwnerOnly
+
 
 # create views 
 class MedicineView(generics.ListCreateAPIView):
+    permission_classes = (IsOwnerOnly)
     queryset = Medicine.objects.all()
-    serializer_class = MedicineSerializer # same as form_classin django
+    serializer_class = MedicineSerializer # same as form_class in django
     
     def perform_create(self, serializer):
         #serializer.save(user=self.request.user)
-        return super().perform_create(serializer)
+        return super().perform_create(serializer) 
     
+    # set permissions
+    def filter_queryset(self, queryset):
+        permission_classes = (IsOwnerOnly)
+        queryset = queryset.filter(user=self.request.user)
+        return super().filter_queryset(queryset)   
     
 
 # detailview
-
 class MedicineDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer
