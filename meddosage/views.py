@@ -1,18 +1,17 @@
-from django.shortcuts import render,get_object_or_404
+'''from django.shortcuts import render,get_object_or_404
 from django.urls import reverse_lazy
 from meddosage.models import Medicine
 from django.http import JsonResponse
 from .forms import MedicineForm
 from django.views.generic import CreateView,ListView,DeleteView,UpdateView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator'''
 
 
 from rest_framework import generics
 from .serializers import MedicineSerializer # same as forms
 from .models import Medicine
 from .permissions import IsOwnerOnly
-
 
 # create views 
 class MedicineView(generics.ListCreateAPIView):
