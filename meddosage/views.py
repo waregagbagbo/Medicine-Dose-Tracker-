@@ -7,7 +7,33 @@ from django.views.generic import CreateView,ListView,DeleteView,UpdateView,Detai
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 
-# Create your views here.
+
+from rest_framework import generics
+from .serializers import MedicineSerializer # same as forms
+from .models import Medicine
+
+# create views 
+class MedicineView(generics.ListCreateAPIView):
+    queryset = Medicine.objects.all()
+    serializer_class = MedicineSerializer # same as form_classin django
+    
+    def perform_create(self, serializer):
+        #serializer.save(user=self.request.user)
+        return super().perform_create(serializer)
+    
+    
+
+# detailview
+
+class MedicineDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Medicine.objects.all()
+    serializer_class = MedicineSerializer
+
+
+
+
+
+"""# Create your views here.
 
 class  MedicineView(ListView):
     model = Medicine
@@ -58,7 +84,7 @@ class MedicineEditView(DetailView):    # for  itemview
 class MedicineDelete(DeleteView):     # for delete
     model = Medicine
     template_name ='medicine/delete.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('home')"""
     
     
 

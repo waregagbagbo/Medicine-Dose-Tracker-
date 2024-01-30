@@ -14,3 +14,12 @@ Key Features of REST:
 6. Pagination: Provides built in support for paginating larger datasets in API responses.
 
 7. Browsable API: Has a user friendly HTML interface for testing and exploring APIs directly from the browser.
+
+
+## installation ##
+
+pip install djangorestframework
+
+Add the the app to installed app in the settings as below:
+
+** 'rest_framework'
