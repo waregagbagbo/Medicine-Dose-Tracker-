@@ -1,7 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.urls import reverse_lazy
 from .models import *
-from accounts.models import UserProfile
 from .forms import MedicineForm
 from django.views.generic import CreateView,ListView,DeleteView,UpdateView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,14 +8,15 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 
-class  MedicineView(LoginRequiredMixin,ListView):
+class  MedicineView(ListView):
     model = Medicine
     template_name = 'medicine/medlist.html'
-    paginate_by = 10           
+    paginate_by = 10 
+    success_url = reverse_lazy('home')          
     
     def get_context_data(self, **kwargs):
         context = super(MedicineView,self).get_context_data(**kwargs)       
-        context['medicines'] = Medicine.objects.filter(user = self.request.user).order_by('-tracked_medicine')        
+        context['medicines'] = Medicine.objects.filter().order_by('-tracked_medicine')        
        
         # search field section
         search_input = self.request.GET.get('search_input') or '' # the apostrophe is for an empty search
@@ -27,14 +27,14 @@ class  MedicineView(LoginRequiredMixin,ListView):
         
 
 
-class MedicineCreate(LoginRequiredMixin,CreateView):
+class MedicineCreate(CreateView):
     model = Medicine
     template_name = 'medicine/create.html'
     form_class = MedicineForm
     success_url = reverse_lazy('home')  
     
     def form_valid(self,form):
-        my_form = UserProfile.objects.get(user=self.request.user.userprofile)
+        my_form = User.objects.get(user=self.request.user)
         form.instance.user= my_form.save()
         return super(MedicineCreate, self).form_valid(form)  
     

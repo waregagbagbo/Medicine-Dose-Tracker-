@@ -38,18 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'meddosage',
-    
+    'meddosage',    
     'crispy_forms',
     'crispy_bootstrap5',
     
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     
-    # ... include the providers you want to enable:
-    'allauth.socialaccount.providers.google',    
 ]
 
 MIDDLEWARE = [
@@ -60,21 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',    
-    # Add the social accounts middleware:
-    "allauth.account.middleware.AccountMiddleware",
 ]
 
-
-
-AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by email
-    'allauth.account.auth_backends.AuthenticationBackend',    
-]
-
-SITE_ID = 1
 
 ROOT_URLCONF = 'medicine_app.urls'
 
@@ -156,7 +136,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
-LOGIN_REDIRECT_URL = 'home'
+
 
 
 # celery configuration files
