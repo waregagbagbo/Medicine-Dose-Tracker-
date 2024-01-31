@@ -40,3 +40,9 @@ Despite the default allowAny policy, it has other built-in project levele permis
   1. IsAutheneticated: Access to only authenticated users
   2. IsAdminUser: Only admin/superuser access
   3. IsAuthenticatedOrReadOnly:Only authenticated users can perfom CRUD
+
+
+  REST has two main decorators for views:
+    @apiview( decorator for working with function based views)
+      """_summary_
+      """    APIView ( decorator class for working with CBV)

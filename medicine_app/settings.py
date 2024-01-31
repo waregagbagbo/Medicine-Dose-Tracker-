@@ -150,6 +150,8 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':(
-        'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.IsReadOnly',
     ),
 }
+
+LOGOUT_REDIRECT ='home'

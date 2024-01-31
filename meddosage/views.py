@@ -12,27 +12,29 @@ from rest_framework import generics
 from .serializers import MedicineSerializer # same as forms
 from .models import Medicine
 from rest_framework import permissions
+from .permissions import IsOwnerOnly
 
 
 # create views 
 class MedicineView(generics.ListCreateAPIView):
-    #permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOnly]
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer # same as form_class in django
     
+    # method to associate a user that creates an object
     def perform_create(self, serializer):
-        #serializer.save(user=self.request.user)
-        return super().perform_create(serializer) 
+        serializer.save(user=self.request.user)
+      
     
     # set permissions
     def filter_queryset(self, queryset):
-        #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-        queryset = queryset.filter()
+        queryset = queryset.filter(user=self.request.user)
         return super().filter_queryset(queryset)   
     
 
 # detailview
 class MedicineDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAdminUser]
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer
 
