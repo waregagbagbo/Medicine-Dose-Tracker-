@@ -149,7 +149,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSESS':[
-        'rest_framework.permissions.IsAuthenticated',
-    ]
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.IsAdminUser',
+    ),
 }

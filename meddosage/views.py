@@ -11,11 +11,12 @@ from django.core.paginator import Paginator'''
 from rest_framework import generics
 from .serializers import MedicineSerializer # same as forms
 from .models import Medicine
-from .permissions import IsOwnerOnly
+from rest_framework import permissions
+
 
 # create views 
 class MedicineView(generics.ListCreateAPIView):
-    permission_classes = (IsOwnerOnly)
+    #permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer # same as form_class in django
     
@@ -25,8 +26,8 @@ class MedicineView(generics.ListCreateAPIView):
     
     # set permissions
     def filter_queryset(self, queryset):
-        permission_classes = (IsOwnerOnly)
-        queryset = queryset.filter(user=self.request.user)
+        #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+        queryset = queryset.filter()
         return super().filter_queryset(queryset)   
     
 
