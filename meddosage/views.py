@@ -17,19 +17,19 @@ from .permissions import IsOwnerOnly
 
 # create views 
 class MedicineView(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOnly]
+    #permission_classes = [IsOwnerOnly]
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer # same as form_class in django
     
     # method to associate a user that creates an object
-    def perform_create(self, serializer):
+    """def perform_create(self, serializer):
         serializer.save(user=self.request.user)
       
     
     # set permissions
     def filter_queryset(self, queryset):
         queryset = queryset.filter(user=self.request.user)
-        return super().filter_queryset(queryset)   
+        return super().filter_queryset(queryset)""" 
     
 
 # detailview
