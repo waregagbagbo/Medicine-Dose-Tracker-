@@ -17,7 +17,7 @@ from .permissions import IsOwnerOnly
 
 # create views 
 class MedicineView(generics.ListCreateAPIView):
-    #permission_classes = [IsOwnerOnly]
+    permission_classes = [IsOwnerOnly]
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer # same as form_class in django
     
@@ -34,7 +34,7 @@ class MedicineView(generics.ListCreateAPIView):
 
 # detailview
 class MedicineDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [IsOwnerOnly]
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer
 
