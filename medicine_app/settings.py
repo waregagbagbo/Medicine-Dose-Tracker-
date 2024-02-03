@@ -150,7 +150,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':(
-        'rest_framework.permissions.IsReadOnly',
+        'rest_framework.permissions.AllowAny',
     ),
 }
 

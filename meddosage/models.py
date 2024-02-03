@@ -6,13 +6,7 @@ class Medicine(models.Model):
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
     tracked_medicine = models.CharField(max_length=10, null=True)
     dosage = models.CharField(max_length=20, null=True)
-    frequency = models.IntegerField(null=True)
-    
-    
-    """def save(self, *args, **kwargs):
-        return super().save(*args, **kwargs)"""
-    
-    
+    frequency = models.IntegerField(null=True)  
         
     class Meta:
         verbose_name = 'Medicine'
@@ -20,6 +14,7 @@ class Medicine(models.Model):
         
     def __str__(self):
         #return self.tracked_medicine
+        #return f'Medicine ({self.tracked_medicine},{self.dosage})'
         return "%s,%s,%s"% (self.tracked_medicine,self.dosage, self.frequency)
     
     
