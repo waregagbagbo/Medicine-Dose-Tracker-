@@ -1,15 +1,5 @@
-'''from django.shortcuts import render,get_object_or_404
-from django.urls import reverse_lazy
-from meddosage.models import Medicine
-from django.http import JsonResponse
-from .forms import MedicineForm
-from django.views.generic import CreateView,ListView,DeleteView,UpdateView,DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator'''
-
-
 from rest_framework import generics
-from .serializers import MedicineSerializer # same as forms
+from .serializers import MedicineSerializer, UserSerializer # same as forms
 from .models import Medicine
 from rest_framework import permissions
 from .permissions import IsOwnerOnly
@@ -18,18 +8,13 @@ from .permissions import IsOwnerOnly
 # create views 
 class MedicineView(generics.ListCreateAPIView):
     permission_classes = [IsOwnerOnly]
-    queryset = Medicine.objects.all()
-    serializer_class = MedicineSerializer # same as form_class in django
+    queryset = Medicine.objects.all() # options filter,sliced or ordered by view
+    serializer_class = MedicineSerializer # same as form_class in django used for validating and deserializing the input and for serializing the outpu
     
-    # method to associate a user that creates an object
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-      
-    
-    # set permissions
-    def filter_queryset(self, queryset):
-        queryset = queryset.filter(owner=self.request.user)
-        return super().filter_queryset(queryset)
+    # filter user data
+    def get_queryset(self):
+        user = self.request.user
+        return Medicine.objects.filter(owner=user)
     
 
 # detailview
@@ -37,6 +22,16 @@ class MedicineDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOnly]
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer
+    
+    
+# user create API
+class UserCreate(generics.CreateAPIView):
+    authentication_classes = () # to excempt UserCreate from global authentication scheme
+    permission_classes = ()  # same metholody as to authentication_classess
+    serializer_class = UserSerializer
+    
+
+
 
 
 

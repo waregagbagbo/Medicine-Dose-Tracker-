@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'rest_framework',
     
+    # enable rest_framework.authtoken
+    'rest_framework.authtoken',
+    
     
 ]
 
@@ -150,8 +153,10 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':(
-        'rest_framework.permissions.AllowAny',
-    ),
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }
 
 LOGOUT_REDIRECT ='home'
