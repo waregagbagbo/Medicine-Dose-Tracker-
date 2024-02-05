@@ -7,4 +7,6 @@ class MedicineSerializer(serializers.ModelSerializer):
     #user = serializers.ReadOnlyField(source = 'user.username')    
     class Meta:
         model = Medicine
-        fields = ('tracked_medicine','dosage','frequency','owner',)
+        fields = ' __all__'
+       #fields = ('tracked_medicine','dosage','frequency',)
+        

@@ -22,14 +22,14 @@ class MedicineView(generics.ListCreateAPIView):
     serializer_class = MedicineSerializer # same as form_class in django
     
     # method to associate a user that creates an object
-    """def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
       
     
     # set permissions
     def filter_queryset(self, queryset):
-        queryset = queryset.filter(user=self.request.user)
-        return super().filter_queryset(queryset)""" 
+        queryset = queryset.filter(owner=self.request.user)
+        return super().filter_queryset(queryset)
     
 
 # detailview
