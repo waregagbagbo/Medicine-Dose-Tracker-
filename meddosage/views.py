@@ -12,9 +12,9 @@ class MedicineView(generics.ListCreateAPIView):
     serializer_class = MedicineSerializer # same as form_class in django used for validating and deserializing the input and for serializing the outpu
     
     # filter user data
-    def get_queryset(self):
+    """def get_queryset(self):
         user = self.request.user
-        return Medicine.objects.filter(owner=user)
+        return Medicine.objects.filter(user=user)"""
     
 
 # detailview
@@ -22,6 +22,10 @@ class MedicineDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOnly]
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer
+    
+    def get_queryset(self):
+        user = self.request.user
+        return super().get_queryset(user)
     
     
 # user create API
