@@ -1,13 +1,13 @@
-from rest_framework import generics
+from rest_framework import generics, permissions,authentication
 from .serializers import MedicineSerializer, UserSerializer # same as forms
 from .models import Medicine
-from rest_framework import permissions
 from .permissions import IsOwnerOnly
 
 
 # create views 
 class MedicineView(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    authentication_classes = [authentication.SessionAuthentication]
     queryset =Medicine.objects.all()
     serializer_class = MedicineSerializer # same as form_class in django used for validating and deserializing the input and for serializing the output
     
@@ -15,16 +15,10 @@ class MedicineView(generics.ListCreateAPIView):
 
 # detailview
 class MedicineDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsOwnerOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer
         
-    
-# user create API
-class UserCreate(generics.CreateAPIView):
-    authentication_classes = () # to excempt UserCreate from global authentication scheme, anyone can access
-    permission_classes = ()  # same metholody as to authentication_classess
-    serializer_class = UserSerializer
     
 
 
