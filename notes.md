@@ -11,3 +11,13 @@ create(self, validated_data):= method that knows how to update an instance
 ** RetrieveDestroyAPIView
 
 ** RetrieveDestroyAPIView: RetrieveS an individual entity details, or delete the entity. Allows GET and DELETE. **
+
+# ModelSwerializers
+Concept use is ti serialize classes that map closely to DJango model definitions.
+
+ModelSerializer is same as regular Serializer class except that;
+ 1. IT automatically generates fields based on the model.
+
+ 2. Automatically generates validators for the serializer. i,e unique_together validators.
+
+ 3. Is inclusive of simple default implementations of .create() and .update()

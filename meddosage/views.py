@@ -8,13 +8,9 @@ from .permissions import IsOwnerOnly
 # create views 
 class MedicineView(generics.ListCreateAPIView):
     permission_classes = [IsOwnerOnly]
-    queryset = Medicine.objects.all() # options filter,sliced or ordered by view
-    serializer_class = MedicineSerializer # same as form_class in django used for validating and deserializing the input and for serializing the outpu
+    queryset =Medicine.objects.all()
+    serializer_class = MedicineSerializer # same as form_class in django used for validating and deserializing the input and for serializing the output
     
-    # filter user data
-    """def get_queryset(self):
-        user = self.request.user
-        return Medicine.objects.filter(user=user)"""
     
 
 # detailview
@@ -22,15 +18,11 @@ class MedicineDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOnly]
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer
-    
-    def get_queryset(self):
-        user = self.request.user
-        return super().get_queryset(user)
-    
+        
     
 # user create API
 class UserCreate(generics.CreateAPIView):
-    authentication_classes = () # to excempt UserCreate from global authentication scheme
+    authentication_classes = () # to excempt UserCreate from global authentication scheme, anyone can access
     permission_classes = ()  # same metholody as to authentication_classess
     serializer_class = UserSerializer
     

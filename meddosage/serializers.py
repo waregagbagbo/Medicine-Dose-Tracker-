@@ -3,14 +3,23 @@ from .models import Medicine
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
-class MedicineSerializer(serializers.ModelSerializer):
-    #model serializer provides a faster way get model field in serialized manner.works as forms
-    #user = serializers.ReadOnlyField(source = 'user.username')    
+class MedicineSerializer(serializers.ModelSerializer):    
+    # control the fields 
+    """def  __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.context['request'].user.is_staff:
+            self.fields = ('user','tracked_medicine','dosage')    
+        else:
+            self.fields('tracked_medicine','dosage','frequency')"""    
+           
     class Meta:
         model = Medicine
-        fields = '__all__'
-       #fields = ('tracked_medicine','dosage','frequency',)
+        fields = ('user','tracked_medicine','dosage','frequency')  
+
+       
         
+        
+       
 class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
