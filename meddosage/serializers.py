@@ -14,7 +14,7 @@ class MedicineSerializer(serializers.ModelSerializer):
            
     class Meta:
         model = Medicine
-        fields = ('user','tracked_medicine','dosage','frequency')  
+        fields = ('tracked_medicine','dosage','frequency')  
 
        
         

@@ -6,7 +6,7 @@ from .permissions import IsOwnerOnly
 
 # create views 
 class MedicineView(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.DjangoModelPermissions]
     authentication_classes = [authentication.SessionAuthentication]
     queryset =Medicine.objects.all()
     serializer_class = MedicineSerializer # same as form_class in django used for validating and deserializing the input and for serializing the output
