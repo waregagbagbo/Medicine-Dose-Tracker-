@@ -42,9 +42,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'rest_framework',
-    
-    # enable rest_framework.authtoken
     'rest_framework.authtoken',
+    'dj_rest_auth',
     
     
 ]
@@ -154,9 +153,12 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # global REST_framework settings 
 # For authentication purposes
 REST_FRAMEWORK ={
+      'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES':[
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        
-    ]
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication'        
+    ],
+    
 }

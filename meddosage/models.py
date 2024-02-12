@@ -18,5 +18,5 @@ class Medicine(models.Model):
         #return f'Medicine ({self.tracked_medicine},{self.dosage})'
         return "%s,%s,%s"% (self.tracked_medicine,self.dosage, self.frequency)
     
-    for user in User.objects.all():
-        Token.objects.get_or_create(user=USER_BASE)
+    #for user in User.objects.all():
+        #Token.objects.get_or_create(user=USER_BASE)
