@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 
 # Create your models here.
 class Medicine(models.Model):
@@ -17,4 +18,5 @@ class Medicine(models.Model):
         #return f'Medicine ({self.tracked_medicine},{self.dosage})'
         return "%s,%s,%s"% (self.tracked_medicine,self.dosage, self.frequency)
     
-    
+    for user in User.objects.all():
+        Token.objects.get_or_create(user=USER_BASE)

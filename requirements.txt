@@ -12,6 +12,7 @@ click-repl==0.3.0
 crispy-bootstrap5==2023.10
 cryptography==42.0.1
 defusedxml==0.7.1
+dj-rest-auth==5.0.2
 Django==5.0.1
 django-allauth==0.60.1
 django-crispy-forms==2.1
