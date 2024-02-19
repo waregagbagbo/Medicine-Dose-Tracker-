@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'meddosage',    
     'crispy_forms',
     'crispy_bootstrap5',
-    
+    'authentication', # authentication  app
     
     'rest_framework',
     'rest_framework.authtoken',
