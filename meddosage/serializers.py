@@ -1,23 +1,16 @@
 from rest_framework import serializers # used to convert python objects to JSON
 from .models import Medicine
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
+from rest_framework import serializers
 
 class MedicineSerializer(serializers.ModelSerializer):    
-    # control the fields 
-    """def  __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if self.context['request'].user.is_staff:
-            self.fields = ('user','tracked_medicine','dosage')    
-        else:
-            self.fields('tracked_medicine','dosage','frequency')"""    
-           
     class Meta:
         model = Medicine
         fields = ('tracked_medicine','dosage','frequency')  
 
-       
-        
+           
         
        
 class UserSerializer(serializers.ModelSerializer):
@@ -35,3 +28,35 @@ class UserSerializer(serializers.ModelSerializer):
             Token.objects.create(user=user) # create tokens when user is created
             return user
         
+        
+    
+class LoginSerializer(serializers.Serializer):
+    # serializer defining two field for authentication
+    # username and password
+    username = serializers.CharField(label="Username", write_only=True)
+    password = serializers.CharField(label="Password", style={'input_type': 'password'}, trim_whitespace=False, write_only=True)
+    
+    
+    def validate(self, attrs):
+        # take username and password from request
+        username = attrs.get('username')
+        password = attrs.get('password')
+        
+        if username and password:
+            # try to authenticate the user using Django auth
+            user = authenticate(request=self.context.get('request'),username=username, password=password)
+            
+        if not user:
+            # absence of regular user, raise an error
+            msg ='Access denied: wrong username or password'
+            raise serializers.ValidationError(msg, code='authorization')
+        
+        else:
+            msg = 'Both "username" and "password" are required.'
+            raise serializers.ValidationError(msg, code='authorization')
+        
+        # Presence of valid user, put itt in the serializers validated_data
+        # Essential to be used in the views
+        attrs['user'] = user      
+        return super().validate(attrs)
+    

@@ -41,11 +41,21 @@ INSTALLED_APPS = [
     'meddosage',    
     'crispy_forms',
     'crispy_bootstrap5',
+    
+    
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
+
+    #'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'dj_rest_auth.registration',
     
-    
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+
 ]
 
 MIDDLEWARE = [
@@ -55,7 +65,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',    
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',  
+    'allauth.account.middleware.AccountMiddleware',  
 ]
 
 
@@ -158,7 +169,14 @@ REST_FRAMEWORK ={
     ],
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication'        
-    ],
-    
+        'rest_framework.authentication.SessionAuthentication',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',       
+    ],    
 }
+REST_USE_JWT = True
+
+JWT_AUTH_COOKIE = 'jwt-auth-token'
+JWT_AUTH_REFRESH_COOKIE = 'jwt-refresh-token'
+
+# socials
+SITE_ID = 1

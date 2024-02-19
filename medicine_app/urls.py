@@ -22,5 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('',include('meddosage.urls')),
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')), # default login/logout route
+    path('auth/', include('dj_rest_auth.urls')), # default login/logout route
+    path('auth/registration/', include('dj_rest_auth.registration.urls'))
+
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
