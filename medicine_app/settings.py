@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,20 +39,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'meddosage',    
+    'meddosage',
+    'authentication', 
+    'corsheaders',   
     'crispy_forms',
     'crispy_bootstrap5',
-    'authentication', # authentication  app
     
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    
+    
     'dj_rest_auth',
+    'dj_rest_auth.registration',
 
     #'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'dj_rest_auth.registration',
-    
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.twitter',
@@ -61,12 +65,14 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',  
-    'allauth.account.middleware.AccountMiddleware',  
+    #'allauth.account.middleware.AccountMiddleware',
+  
 ]
 
 
@@ -89,6 +95,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'medicine_app.wsgi.application'
+
+# socials
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
 # Database
@@ -141,6 +153,7 @@ STATIC_URL = 'static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # store uploaded files
 MEDIA_URL = '/media/' # path for users to access the media on the web
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -151,15 +164,13 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
-
-
 # celery configuration files
 CELERY_BROKER_URL = 'amqp://localhost'
-
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+#ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
 
 # global REST_framework settings 
 # For authentication purposes
@@ -168,15 +179,35 @@ REST_FRAMEWORK ={
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES':[
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        #'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',       
+        #'dj_rest_auth.jwt_auth.JWTCookieAuthentication',       
     ],    
 }
-REST_USE_JWT = True
 
-JWT_AUTH_COOKIE = 'jwt-auth-token'
-JWT_AUTH_REFRESH_COOKIE = 'jwt-refresh-token'
+# JWT config settings
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60), # duration for access token
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7), # validity of refresh token
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": False,
+    "UPDATE_LAST_LOGIN": True,
+    "SIGNING_KEY": "complexsigningkey",  # generate a key and replace me
+    "ALGORITHM": "HS512",
+}
 
-# socials
-SITE_ID = 1
+REST_AUTH = {
+    "USE_JWT": True,
+    "JWT_AUTH_HTTPONLY": False, # to enable sending of refresh tokens
+}
+
+
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:8000/",
+        "http://127.0.0.1:8000/",
+    ]
+
